@@ -6,6 +6,8 @@
   --text: #f8f8ff;
   --muted: #c4c3dc;
   --card-bg: rgba(8, 9, 30, 0.5);
+  --gold: #ffe380;
+  --cyan: #9ce8ff;
 }
 
 * {
@@ -18,6 +20,7 @@ body {
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   color: var(--text);
   background: linear-gradient(130deg, var(--bg-1), var(--bg-2), var(--bg-3));
+  line-height: 1.6;
 }
 
 .wallpaper {
@@ -46,7 +49,8 @@ body {
 .grid {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(circle at center, black 35%, transparent 80%);
@@ -61,60 +65,109 @@ body {
   display: grid;
   place-items: center;
   padding: 2rem;
+  gap: 2rem;
 }
 
 .hero {
   width: min(900px, 94vw);
   text-align: center;
-  padding: clamp(1.25rem, 4vw, 2.5rem);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 24px;
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(20px);
   background: var(--card-bg);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(69, 208, 255, 0.05) 50%, transparent 70%);
+  pointer-events: none;
 }
 
 .logo {
   width: clamp(96px, 14vw, 170px);
-  filter: drop-shadow(0 8px 22px rgba(20, 16, 60, 0.8));
+  filter: drop-shadow(0 12px 32px rgba(20, 16, 60, 0.8));
+  transition: transform 0.3s ease;
 }
 
 .logo.small {
   width: clamp(72px, 9vw, 120px);
 }
 
+.logo:hover {
+  transform: scale(1.05);
+}
+
 .tag {
-  margin: 0.75rem 0 0;
+  margin: 1rem 0 0;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  font-size: clamp(0.75rem, 1.5vw, 0.85rem);
   color: var(--accent);
   font-weight: 700;
 }
 
 h1 {
-  margin: 0.75rem 0;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1.05;
+  margin: 1rem 0 0.5rem;
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  line-height: 1.1;
   font-weight: 800;
+  background: linear-gradient(135deg, var(--text), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .description {
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 2rem;
   max-width: 60ch;
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  line-height: 1.6;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
   color: var(--muted);
+  font-weight: 500;
 }
 
 .btn-primary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   text-decoration: none;
   color: #07122c;
   font-weight: 700;
+  font-size: 1rem;
   background: linear-gradient(135deg, #57e4ff, #92a7ff);
-  padding: 0.85rem 1.25rem;
-  border-radius: 12px;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(87, 228, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(87, 228, 255, 0.4);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
 }
 
 .info-page-body {
@@ -123,33 +176,56 @@ h1 {
 
 .info-page {
   place-items: start center;
-  gap: 1.5rem;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
 }
 
 .info-header {
-  margin-top: 1rem;
+  margin-top: clamp(1rem, 3vw, 2rem);
 }
 
 .price-grid {
-  width: min(1200px, 96vw);
+  width: min(1400px, 98vw);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-  padding-bottom: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
+  max-width: 1400px;
 }
 
 .price-card {
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   background: var(--card-bg);
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-  padding: 1rem;
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  padding: 1.75rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.price-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+}
+
+.price-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
 }
 
 .price-card h2 {
-  margin: 0 0 0.75rem;
-  font-size: 1.1rem;
-  color: #9ce8ff;
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  color: var(--cyan);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .price-card ul {
@@ -157,18 +233,28 @@ h1 {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.45rem;
+  gap: 0.75rem;
 }
 
 .price-card li {
   display: flex;
   justify-content: space-between;
-  gap: 0.7rem;
-  color: #f3f3ff;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text);
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+}
+
+.price-card span {
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 .price-card b {
-  color: #ffe380;
+  color: var(--gold);
+  font-weight: 800;
+  font-size: 1.05em;
 }
 
 @keyframes float {
@@ -183,9 +269,52 @@ h1 {
   to { transform: translate3d(-64px, -64px, 0); }
 }
 
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .price-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+    padding: 0 0.5rem;
+  }
+  
+  .price-card {
+    padding: 1.5rem 1.25rem;
+  }
+  
+  .price-card li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .price-card b {
+    align-self: flex-end;
+    font-size: 1.1em;
+  }
+}
+
 @media (max-width: 640px) {
   .landing-page,
   .info-page {
-    padding: 1rem;
+    padding: 1.25rem 1rem;
+    gap: 1.5rem;
+  }
+  
+  .price-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0;
+  }
+  
+  .hero {
+    padding: 2rem 1.5rem;
   }
 }
+
+@media (max-width: 480px) {
+  .price-card {
+    padding: 1.25rem 1rem;
+  }
+  
+  h1 {
+    font-size: clamp(1.75rem, 8vw, 
